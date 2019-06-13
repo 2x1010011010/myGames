@@ -22,7 +22,7 @@ public class GameField extends JPanel implements ActionListener{
 	private Image border;
 	private int appleX; 
 	private int appleY; 
-	private int timeCounter = 400;
+	private int timeCounter = 350;
 	private int dotCounter = 3;
 	private int[] x = new int[ALL_DOTS]; 
 	private int[] y = new int[ALL_DOTS]; 
@@ -131,11 +131,14 @@ public class GameField extends JPanel implements ActionListener{
 		if(x[0] == appleX && y[0] == appleY) { 
 			dots++;
 			dotCounter++;
+			if(dotCounter == 10 && timeCounter > 100) {
+				timeCounter -= 20;
+				dotCounter = 0;
+				timer.stop();
+				timer = new Timer(timeCounter,this); 
+				timer.start();
+			}
 			createApple(); 
-		}
-		if(dotCounter == 5) {
-			timeCounter -= 50;
-			dotCounter = 0;
 		}
 	} 
 
